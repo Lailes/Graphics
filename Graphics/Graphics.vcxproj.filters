@@ -7,14 +7,23 @@
     <Filter Include="Service">
       <UniqueIdentifier>{b26bf8dc-5407-4668-913d-c6ba6e72c3ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities\Light">
+      <UniqueIdentifier>{ff162a79-bb56-4f7d-ab56-fef25f8d5418}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="SceneOperator.cpp">
-      <Filter>Service</Filter>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Entities\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="DotLight.cpp">
+      <Filter>Entities\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -24,11 +33,17 @@
     <ClInclude Include="Cube.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="SceneOperator.h">
-      <Filter>Service</Filter>
-    </ClInclude>
     <ClInclude Include="Entities.h">
       <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Entities\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="DotLight.h">
+      <Filter>Entities\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,7 @@
 #pragma once
-#include <glut.h>
+#include <functional>
+#include <GL\glut.h>
 #include "SceneObject.h"
-
-using namespace SceneObjests;
 
 class Cube : public SceneObject {
 private:
@@ -19,12 +18,5 @@ public:
 	void draw() override;
 
 	void setEdgeSize(float size);
-
-	void setStartPosition(float x0, float y0, float z0) override {
-		this->x = x0;
-		this->y = y0;
-		this->z = z0;
-	}
-
 };
 
