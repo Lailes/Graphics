@@ -10,9 +10,15 @@ Light::Light(float x, float y, float z, float r, float g, float b, GLenum lamp, 
 	this->lamp = lamp;
 	this->drawMark = drawMark;
 	this->markSize = markSize;
+	this->display = false;
+	restoreDefaultsFunction = [](SceneObject* object) {
+		Light* l = (Light*)object;
+		l->turn(false);
+	};
 }
 
 void Light::draw() {
+	if (!display) return;
 	if (!drawMark) return;
 	
 	glBegin(GL_POLYGON);

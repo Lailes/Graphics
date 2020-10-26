@@ -24,6 +24,9 @@
     <ClCompile Include="DotLight.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Pane.cpp" />
+    <ClCompile Include="ProjectorLight.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -31,6 +34,8 @@
     <ClInclude Include="DotLight.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Pane.h" />
+    <ClInclude Include="ProjectorLight.h" />
     <ClInclude Include="SceneObject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

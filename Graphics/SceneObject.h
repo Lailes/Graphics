@@ -8,6 +8,7 @@ protected:
 	float startX, startY, startZ;
 	std::function<void(unsigned char&, int&, int&, SceneObject*)> processFunction;
 	std::function<void(SceneObject*)> restoreDefaultsFunction;
+	bool display = true;
 
 public:
 	SceneObject(float xPos, float yPos, float zPos) {
@@ -49,5 +50,7 @@ public:
 		z = startZ;
 		draw();
 	}
+	virtual void visibilty(bool visible);
+	virtual bool isVisible();
 };
 

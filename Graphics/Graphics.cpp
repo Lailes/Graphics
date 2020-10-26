@@ -35,6 +35,8 @@ void apply() { glFlush(); glutSwapBuffers();}
 void render() {
     clear();         
 
+
+
     renderObjects();
     
     apply();
@@ -93,6 +95,7 @@ void initialize(int argc, char* argv[], int width, int height, const char* title
     glutCreateWindow(title);
     glEnable(GL_DEPTH_TEST);
 
+    glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
     glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     glEnable(GL_NORMALIZE);
@@ -110,28 +113,27 @@ int main(int argc, char* argv[]) {
     renderList.push_back(new Cube(-0.8, 0.0, 0.0, 0.1));
     renderList.push_back(new Cube(0.8, 0.0, 0.0, 0.1));
     renderList.push_back(new Cube(0.0, 0.8, 0.0, 0.1));
-    renderList.push_back(new Cube(0.0,- 0.8, 0.0, 0.1));
+    renderList.push_back(new Cube(0.0, -0.8, 0.0, 0.1));
     renderList.push_back(new Cube(0.0, 0.0, 0.8, 0.1));
     renderList.push_back(new Cube(00.0, 0.0, -0.8, 0.1));
 
-    auto light0 = new DotLight(0.5, 0.5, 0, 0.92, 0.79, 1.0, GL_LIGHT0, true, 0.02);
+    auto light0 = new DotLight(0.5, 0.5, -0.5, 0.92, 0.79, 1.0, GL_LIGHT0);
     light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '1') {
-            Light* l = (Light*)object;
-            l->turn(!l->isOn());
-            std::cout << "[LOG] Light0: " << (l->isOn() ? "ON" : "OFF") << std::endl;
-        }
-        
+        if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());}  
     });
     
-    light0->setRestoreFunc([](SceneObject* object) {
-        Light* l = (Light*)object;
-        l->turn(OFF);
-        std::cout << "[LOG] Light0: " << (l->isOn() ? "ON" : "OFF") << std::endl;
-        });
-
     light0->turnDecay(ON);
     renderList.push_back(light0);
+
+
+    auto lightProjector = new ProjectorLight(0.6, 0.6, 0.6, 10, 61, 100, GL_LIGHT1);
+    lightProjector->setDirection(-1.0, -1.0, -1.0);
+    lightProjector->setExponent(15);
+    lightProjector->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
+     });
+
+    renderList.push_back(lightProjector);
 
     auto moveCube = new Cube(0.0, 0.0, 0.0, 0.15);
     renderList.push_back(moveCube);
@@ -148,6 +150,26 @@ int main(int argc, char* argv[]) {
     moveCube->setRestoreFunc([](SceneObject* object) {
         object->setDefaultPosition();
     });
+
+    auto pane = new Pane(1.0,1.0,1.0);
+    pane->addDot(-0.7, 0.0, 0.0);
+    pane->addDot(0.0, -0.7, 0.0);
+    pane->addDot(0.0, 0.0, -0.7);
+    pane->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        if (key == '[') { object->visibilty(!object->isVisible()); }
+    });
+
+    renderList.push_back(pane);
+
+    auto pane2 = new Pane(0.62, 0.72, 1.0);
+    pane2->addDot(0.7, 0.0, 0.0);
+    pane2->addDot(0.0, 0.7, 0.0);
+    pane2->addDot(0.0, 0.0, 0.7);
+    pane2->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        if (key == ']') { object->visibilty(!object->isVisible()); }
+        });
+
+    renderList.push_back(pane2);
     
 
     initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition");

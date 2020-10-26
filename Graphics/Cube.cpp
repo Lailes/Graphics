@@ -2,6 +2,8 @@
 #include <GL\glut.h>
 
 void Cube::draw() {
+    if (!display) return;
+
     glBegin(GL_POLYGON);
     glColor3f(1.0, edgeSize, .0);
     glVertex3f(edgeSize + x, -edgeSize + y, -edgeSize + z);

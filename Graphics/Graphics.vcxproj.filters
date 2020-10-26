@@ -25,6 +25,9 @@
     <ClCompile Include="DotLight.cpp">
       <Filter>Entities\Light</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectorLight.cpp" />
+    <ClCompile Include="Pane.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneObject.h">
@@ -45,5 +48,7 @@
     <ClInclude Include="DotLight.h">
       <Filter>Entities\Light</Filter>
     </ClInclude>
+    <ClInclude Include="ProjectorLight.h" />
+    <ClInclude Include="Pane.h" />
   </ItemGroup>
 </Project>

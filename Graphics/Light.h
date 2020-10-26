@@ -7,13 +7,13 @@ class Light : public SceneObject {
 protected:
 	GLenum lamp;
 	float r, g, b;  // light color
-	bool display = false;
 	bool decay = false;
 	bool drawMark = false;
 	float markSize;
 
 public:
 	Light(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize);
+	Light(float x, float y, float z, float r, float g, float b, GLenum lamp) : Light(x, y, z, r, g, b, lamp, true, 0.02) {}
 	virtual void turnDecay(bool decay) {
 		this->decay = decay;
 	}
