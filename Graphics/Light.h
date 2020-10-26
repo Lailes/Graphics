@@ -11,6 +11,7 @@ protected:
 	bool decay = false;
 	bool drawMark = false;
 	float markSize;
+
 public:
 	Light(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize);
 	virtual void turnDecay(bool decay) {

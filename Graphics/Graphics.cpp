@@ -30,7 +30,6 @@ void clear() {
     glRotatef(rot_y, 0.0, 1.0, 0.0);
 }
 
-
 void apply() { glFlush(); glutSwapBuffers();}
 
 void render() {
@@ -58,6 +57,12 @@ void inputSpecial(int k, int x, int y) {
         case GLUT_KEY_F1:
             exit(0);
             break;
+        case GLUT_KEY_F2: {
+            for (const auto obj : renderList) {
+                obj->restoreDefaults();
+            }
+            break;
+        }
         default:
             break;
     }
@@ -118,7 +123,14 @@ int main(int argc, char* argv[]) {
         }
         
     });
+    
+    light0->setRestoreFunc([](SceneObject* object) {
+        Light* l = (Light*)object;
+        l->turn(OFF);
+        std::cout << "[LOG] Light0: " << (l->isOn() ? "ON" : "OFF") << std::endl;
+        });
 
+    light0->turnDecay(ON);
     renderList.push_back(light0);
 
     auto moveCube = new Cube(0.0, 0.0, 0.0, 0.15);
@@ -131,6 +143,10 @@ int main(int argc, char* argv[]) {
         if (key == 'd') { object->changeX(MOVE_SPEED); }
         if (key == 'r') { object->changeZ(MOVE_SPEED); }
         if (key == 'f') { object->changeZ(-MOVE_SPEED); }
+    });
+
+    moveCube->setRestoreFunc([](SceneObject* object) {
+        object->setDefaultPosition();
     });
     
 

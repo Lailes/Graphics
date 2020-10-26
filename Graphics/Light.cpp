@@ -1,6 +1,6 @@
 #include "Light.h"
 
-Light::Light(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize) {
+Light::Light(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize) : SceneObject(x,y,z){
 	this->x = x;
 	this->y = y;
 	this->z = z;
@@ -16,7 +16,7 @@ void Light::draw() {
 	if (!drawMark) return;
 	
 	glBegin(GL_POLYGON);
-	glColor3f(1.0, 0.5, 0.0);
+	glColor3f(1.0, markSize, 0.0);
 	glVertex3f(markSize + x, 0.0 + y, markSize + z);
 	glVertex3f(-markSize + x, 0.0 + y, markSize + z);
 	glVertex3f(0.0 + x, markSize + y, 0.0 + z);

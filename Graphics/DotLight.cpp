@@ -11,8 +11,8 @@ void DotLight::draw() {
 	glLightfv(lamp, GL_POSITION, position);
 
 	if (decay) {
-		glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.0);
-		glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2);
-		glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.4);
+		glLightf(lamp, GL_CONSTANT_ATTENUATION, 0.0);
+		glLightf(lamp, GL_LINEAR_ATTENUATION, 0.2);
+		glLightf(lamp, GL_QUADRATIC_ATTENUATION, 0.4);
 	}
 }

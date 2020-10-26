@@ -5,9 +5,17 @@
 class SceneObject {
 protected:
 	float x, y, z;
+	float startX, startY, startZ;
 	std::function<void(unsigned char&, int&, int&, SceneObject*)> processFunction;
+	std::function<void(SceneObject*)> restoreDefaultsFunction;
 
 public:
+	SceneObject(float xPos, float yPos, float zPos) {
+		startX = x = xPos;
+		startY = y = yPos;
+		startZ = z = zPos;
+	}
+
 	virtual void setPosition(float xPos, float yPos, float zPos) {
 		x = xPos;
 		y = yPos;
@@ -26,6 +34,20 @@ public:
 	}
 	virtual void setProcessFunc(std::function<void(unsigned char&, int&, int&, SceneObject*)> func) {
 		processFunction = func;
+	}
+	virtual void setRestoreFunc(std::function<void(SceneObject*)> func) {
+		restoreDefaultsFunction = func;
+	}
+	virtual void restoreDefaults() {
+		if (restoreDefaultsFunction) {
+			restoreDefaultsFunction(this);
+		}
+	}
+	virtual void setDefaultPosition() {
+		x = startX;
+		y = startY;
+		z = startZ;
+		draw();
 	}
 };
 

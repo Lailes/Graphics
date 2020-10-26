@@ -50,7 +50,3 @@ void Cube::draw() {
     glVertex3f(-edgeSize + x, -edgeSize + y, -edgeSize + z);
     glEnd();
 }
-
-void Cube::setEdgeSize(float size) {
-    this->edgeSize = size;
-}

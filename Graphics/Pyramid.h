@@ -1,14 +1,12 @@
 #pragma once
-#include <functional>
-#include <GL\glut.h>
 #include "SceneObject.h"
 
-class Cube : public SceneObject {
+class Pyramid : public SceneObject {
 private:
 	float edgeSize;
 
 public:
-	Cube(float x0, float y0, float z0, float edgeSize = 0.5): SceneObject(x0, y0, z0) {
+	Pyramid(float x0, float y0, float z0, float edgeSize = 0.5) : SceneObject(x0, y0, z0) {
 		this->x = x0;
 		this->y = y0;
 		this->z = z0;
