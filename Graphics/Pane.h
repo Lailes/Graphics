@@ -16,10 +16,8 @@ protected:
 
 public:
 	Pane(float rColor, float gColor, float bColor) : r(rColor), g(gColor), b(bColor), SceneObject(0, 0, 0) {}
-	void addDot(float x, float y, float z);
+	void addVertex(float x, float y, float z);
 	void draw() override;
-
 	~Pane();
-
 };
 

@@ -7,9 +7,9 @@ protected:
 	float exponent = 0.0;
 
 public:
-	ProjectorLight(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize) : Light(x, y, z, r, g, b, lamp, drawMark, markSize) {
+	ProjectorLight(float x, float y, float z, GLenum lamp, bool drawMark, float markSize) : Light(x, y, z, lamp, drawMark, markSize) {
 	}
-	ProjectorLight(float x, float y, float z, float r, float g, float b, GLenum lamp) : Light(x, y, z, r, g, b, lamp) {}
+	ProjectorLight(float x, float y, float z, GLenum lamp) : Light(x, y, z, lamp) {}
 
 	void setDirection(float x, float y, float z) {
 		directionX = x;
@@ -19,6 +19,10 @@ public:
 
 	void setExponent(float exp) {
 		this->exponent = exp;
+	}
+
+	void setAngle(float angle) {
+		this->angle = angle;
 	}
 
 	void draw() override;

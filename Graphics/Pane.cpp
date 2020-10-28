@@ -1,7 +1,7 @@
 #include <GL\glut.h>
 #include "Pane.h"
 
-void Pane::addDot(float x, float y, float z) {
+void Pane::addVertex(float x, float y, float z) {
 	dots.push_back(new Dot(x, y, z));
 }
 

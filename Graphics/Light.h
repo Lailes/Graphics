@@ -12,10 +12,16 @@ protected:
 	float markSize;
 
 public:
-	Light(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize);
-	Light(float x, float y, float z, float r, float g, float b, GLenum lamp) : Light(x, y, z, r, g, b, lamp, true, 0.02) {}
+	Light(float x, float y, float z, GLenum lamp, bool drawMark, float markSize);
+	Light(float x, float y, float z, GLenum lamp) : Light(x, y, z, lamp, true, 0.02) {}
 	virtual void turnDecay(bool decay) {
 		this->decay = decay;
+	}
+
+	void setColor(float r, float g, float b) {
+		this->r = r;
+		this->g = g;
+		this->b = b;
 	}
 
 	virtual void draw() override;

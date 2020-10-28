@@ -35,8 +35,6 @@ void apply() { glFlush(); glutSwapBuffers();}
 void render() {
     clear();         
 
-
-
     renderObjects();
     
     apply();
@@ -117,7 +115,8 @@ int main(int argc, char* argv[]) {
     renderList.push_back(new Cube(0.0, 0.0, 0.8, 0.1));
     renderList.push_back(new Cube(00.0, 0.0, -0.8, 0.1));
 
-    auto light0 = new DotLight(0.5, 0.5, -0.5, 0.92, 0.79, 1.0, GL_LIGHT0);
+    auto light0 = new DotLight(0.5, 0.5, -0.5, GL_LIGHT0);
+    light0->setColor(0.92, 0.79, 1.0);
     light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());}  
     });
@@ -126,9 +125,11 @@ int main(int argc, char* argv[]) {
     renderList.push_back(light0);
 
 
-    auto lightProjector = new ProjectorLight(0.6, 0.6, 0.6, 10, 61, 100, GL_LIGHT1);
+    auto lightProjector = new ProjectorLight(0.6, 0.6, 0.6, GL_LIGHT1);
     lightProjector->setDirection(-1.0, -1.0, -1.0);
     lightProjector->setExponent(15);
+    lightProjector->setAngle(10);
+    lightProjector->setColor(10, 61, 100);
     lightProjector->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
      });
@@ -152,21 +153,28 @@ int main(int argc, char* argv[]) {
     });
 
     auto pane = new Pane(1.0,1.0,1.0);
-    pane->addDot(-0.7, 0.0, 0.0);
-    pane->addDot(0.0, -0.7, 0.0);
-    pane->addDot(0.0, 0.0, -0.7);
+    pane->addVertex(-0.7, 0.0, 0.0);
+    pane->addVertex(0.0, -0.7, 0.0);
+    pane->addVertex(0.0, 0.0, -0.7);
     pane->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '[') { object->visibilty(!object->isVisible()); }
     });
+    pane->setRestoreFunc([](SceneObject* object) {
+        object->visibilty(true);
+        });
 
     renderList.push_back(pane);
 
     auto pane2 = new Pane(0.62, 0.72, 1.0);
-    pane2->addDot(0.7, 0.0, 0.0);
-    pane2->addDot(0.0, 0.7, 0.0);
-    pane2->addDot(0.0, 0.0, 0.7);
+    pane2->addVertex(0.7, 0.0, 0.0);
+    pane2->addVertex(0.0, 0.7, 0.0);
+    pane2->addVertex(0.0, 0.0, 0.7);
     pane2->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == ']') { object->visibilty(!object->isVisible()); }
+        });
+
+    pane2->setRestoreFunc([](SceneObject* object) {
+        object->visibilty(true);
         });
 
     renderList.push_back(pane2);

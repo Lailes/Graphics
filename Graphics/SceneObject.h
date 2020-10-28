@@ -11,16 +11,16 @@ protected:
 	bool display = true;
 
 public:
-	SceneObject(float xPos, float yPos, float zPos) {
-		startX = x = xPos;
-		startY = y = yPos;
-		startZ = z = zPos;
+	SceneObject(float x, float y, float z) {
+		startX = this->x = x;
+		startY = this->y = y;
+		startZ = this->z = z;
 	}
 
-	virtual void setPosition(float xPos, float yPos, float zPos) {
-		x = xPos;
-		y = yPos;
-		z = zPos;
+	virtual void setPosition(float x, float y, float z) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
 	}
 	virtual void changeX(float delta) { x += delta; }
 	virtual void changeY(float delta) {	y += delta; }
@@ -50,7 +50,11 @@ public:
 		z = startZ;
 		draw();
 	}
-	virtual void visibilty(bool visible);
-	virtual bool isVisible();
+	virtual void visibilty(bool visible) {
+		this->display = visible;
+	}
+	virtual bool isVisible() {
+		return display;
+	}
 };
 

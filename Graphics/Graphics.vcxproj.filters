@@ -25,9 +25,12 @@
     <ClCompile Include="DotLight.cpp">
       <Filter>Entities\Light</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectorLight.cpp" />
-    <ClCompile Include="Pane.cpp" />
-    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="ProjectorLight.cpp">
+      <Filter>Entities\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Pane.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneObject.h">
@@ -48,7 +51,11 @@
     <ClInclude Include="DotLight.h">
       <Filter>Entities\Light</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectorLight.h" />
-    <ClInclude Include="Pane.h" />
+    <ClInclude Include="ProjectorLight.h">
+      <Filter>Entities\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Pane.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,8 +4,8 @@
 class DotLight : public Light {
 
 public:
-	DotLight(float x, float y, float z, float r, float g, float b, GLenum lamp, bool drawMark, float markSize) : Light(x, y, z, r, g, b, lamp, drawMark, markSize) {}
-	DotLight(float x, float y, float z, float r, float g, float b, GLenum lamp) : Light(x, y, z, r, g, b, lamp) {}
+	DotLight(float x, float y, float z, GLenum lamp, bool drawMark, float markSize) : Light(x, y, z, lamp, drawMark, markSize) {}
+	DotLight(float x, float y, float z, GLenum lamp) : Light(x, y, z, lamp) {}
 	void draw() override;
 };
 

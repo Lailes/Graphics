@@ -4,7 +4,7 @@ void ProjectorLight::draw() {
 	if (!display) return;
 	Light::draw();
 
-	GLfloat light4_diffuse[] = { 0.4, 0.7, 0.2 };
+	GLfloat light4_diffuse[] = { r, g, b, 1.0 };
 	GLfloat light4_position[] = { x, y, z, 1.0 };
 	GLfloat light4_spot_direction[] = { directionX, directionY, directionY };
 

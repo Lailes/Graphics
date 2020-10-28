@@ -9,9 +9,7 @@ void DotLight::draw() {
 
 	glEnable(lamp);
 	glLightfv(lamp, GL_DIFFUSE, colorSpecs);
-	glLightfv(lamp, GL_SPECULAR, mass);
 	glLightfv(lamp, GL_POSITION, position);
-
 	if (decay) {
 		glLightf(lamp, GL_CONSTANT_ATTENUATION, 0.0);
 		glLightf(lamp, GL_LINEAR_ATTENUATION, 0.2);
