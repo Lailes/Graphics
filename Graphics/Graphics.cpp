@@ -184,7 +184,7 @@ int main(int argc, char* argv[]) {
     pane2->addVertex(0.7, 0.0, 0.0);
     pane2->addVertex(0.0, 0.7, 0.0);
     pane2->addVertex(0.0, 0.0, 0.7);
-    pane2->setMaterial(greenRubber);
+    pane2->setMaterial(obsidian);
     pane2->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == ']') { object->visibilty(!object->isVisible()); }
         });
@@ -195,6 +195,9 @@ int main(int argc, char* argv[]) {
 
     renderList.push_back(pane2);
     
+    auto ball = new Ball(0.2);
+    ball->setMaterial(greenRubber);
+    renderList.push_back(ball);
 
     initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition");
 

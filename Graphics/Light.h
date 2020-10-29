@@ -10,10 +10,18 @@ protected:
 	bool decay = false;
 	bool drawMark = false;
 	float markSize;
+	bool bindScene = false;
 
 public:
-	Light(float x, float y, float z, GLenum lamp, bool drawMark, float markSize);
+	Light(float x, float y, float z, GLenum lamp, bool drawMark, float markSize): SceneObject(x,y,z) {
+		this->drawMark = drawMark;
+		this->markSize = markSize;
+	}
 	Light(float x, float y, float z, GLenum lamp) : Light(x, y, z, lamp, true, 0.02) {}
+
+	virtual void bindScene(bool bind) {
+		bindScene = bind;
+	}
 	virtual void turnDecay(bool decay) {
 		this->decay = decay;
 	}
