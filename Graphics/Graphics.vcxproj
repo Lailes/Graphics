@@ -26,6 +26,8 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Pane.cpp" />
     <ClCompile Include="ProjectorLight.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="VectorLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -33,9 +35,14 @@
     <ClInclude Include="DotLight.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="LightNumProvider.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Materials.h" />
     <ClInclude Include="Pane.h" />
     <ClInclude Include="ProjectorLight.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="VectorLight.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

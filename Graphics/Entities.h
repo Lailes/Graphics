@@ -6,3 +6,5 @@
 #include "DotLight.h"
 #include "ProjectorLight.h"
 #include "Pane.h"
+#include "VectorLight.h"
+#include "Material.h"

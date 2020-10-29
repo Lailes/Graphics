@@ -10,6 +10,9 @@
     <Filter Include="Entities\Light">
       <UniqueIdentifier>{ff162a79-bb56-4f7d-ab56-fef25f8d5418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Examples">
+      <UniqueIdentifier>{d0e3febc-18a5-4fb6-b155-239435e32939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -30,6 +33,12 @@
     </ClCompile>
     <ClCompile Include="Pane.cpp">
       <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorLight.cpp">
+      <Filter>Entities\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +65,21 @@
     </ClInclude>
     <ClInclude Include="Pane.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorLight.h">
+      <Filter>Entities\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightNumProvider.h">
+      <Filter>Entities\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials.h">
+      <Filter>Examples</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

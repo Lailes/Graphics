@@ -7,11 +7,11 @@ void Pane::addVertex(float x, float y, float z) {
 
 void Pane::draw() {
 	if (!display)return;
-
+	applyMaterial();
 	glBegin(GL_POLYGON);
-	glColor3f(r, g, b);
 	for (const Dot* dot : dots) glVertex3f(dot->xf, dot->yf, dot->zf);
 	glEnd();
+	removeMaterial();
 }
 
 Pane::~Pane() {
