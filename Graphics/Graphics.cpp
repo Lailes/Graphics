@@ -15,33 +15,31 @@
 #define ON true
 #define OFF false
 
-std::vector<SceneObject*> renderList;
+std::vector<Shape*> renderList;
+
+std::vector<Light*> lights;
 
 int rot_x = 0;
 int rot_y = 0;
 
-void renderObjects() {
-    for (const auto obj : renderList) {
-        obj->draw();
-    }
-}
+void render() {        
 
-void clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
+    for (const auto light : lights) {
+        light->draw();
+    }
+
     glRotatef(rot_x, 1.0, 0.0, 0.0);
     glRotatef(rot_y, 0.0, 1.0, 0.0);
-}
 
-void apply() { glFlush(); glutSwapBuffers();}
+    for (const auto obj : renderList) {
+        obj->draw();
+    }
 
-void render() {
-    clear();         
-
-    renderObjects();
-    
-    apply();
+    glFlush();
+    glutSwapBuffers();
 }
 
 void inputSpecial(int k, int x, int y) {
@@ -85,6 +83,9 @@ void reshape(int width, int height){
 
 void inputKeyboard(unsigned char key, int x, int y) {
     for (const auto obj : renderList) {
+        obj->processInput(key, x, y);
+    }
+    for (const auto obj : lights) {
         obj->processInput(key, x, y);
     }
     glutPostRedisplay();
@@ -141,7 +142,7 @@ int main(int argc, char* argv[]) {
     });
     
     light0->turnDecay(ON);
-    renderList.push_back(light0);
+    lights.push_back(light0);
 
 
     auto lightProjector = new ProjectorLight(-0.6, -0.6, -0.6, GL_LIGHT1);
@@ -153,14 +154,14 @@ int main(int argc, char* argv[]) {
         if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
      });
 
-    renderList.push_back(lightProjector);
+    lights.push_back(lightProjector);
 
     auto vectorLight = new VectorLight(1.0,1.0,1.0, GL_LIGHT2);
     vectorLight->setColor(0.88, 0.40, 0.74);
     vectorLight->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '3') { Light* l = (Light*)object; l->turn(!l->isOn()); }
         });
-    renderList.push_back(vectorLight);
+    lights.push_back(vectorLight);
 
     auto moveCube = new Cube(0.0, 0.0, 0.0, 0.15);
     renderList.push_back(moveCube);

@@ -80,4 +80,7 @@ void Light::draw() {
 	GLfloat color2[] = { 0.0, 0.0, 0.0 };
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, color2);
 
+	GLfloat pos[4] = { x, y, z };
+	glLightfv(lamp, GL_POSITION, pos);
+
 }
