@@ -253,8 +253,8 @@ int main(int argc, char* argv[]) {
         if (key == '[') { object->changeZ(MOVE_SPEED); }
         if (key == ']') { object->changeZ(-MOVE_SPEED); }
         if (key == '4') {
-#ifdef _DEBUG
             auto light = getNextLight();
+#ifdef _DEBUG
             std::cout << "Swithching " << object->getName() << " light: \"" << light->name << "\"" << std::endl;
 #endif
             ((Light*)object)->setLigthCharacteristic(light);
@@ -279,8 +279,8 @@ int main(int argc, char* argv[]) {
 #endif
         }
         if (key == '5') {
-#ifdef _DEBUG
             auto light = getNextLight();
+#ifdef _DEBUG
             std::cout << "Swithching " << object->getName() << " light: \"" << light->name << "\"" << std::endl;
 #endif
             ((Light*)object)->setLigthCharacteristic(light);
@@ -301,8 +301,8 @@ int main(int argc, char* argv[]) {
 #endif
         }
         if (key == '6') {
-#ifdef _DEBUG
             auto light = getNextLight();
+#ifdef _DEBUG
             std::cout << "Swithching " << object->getName() << " light: \"" << light->name << "\"" << std::endl;
 #endif
             ((Light*)object)->setLigthCharacteristic(light);
