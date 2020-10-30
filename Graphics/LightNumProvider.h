@@ -1,5 +1,6 @@
 #pragma once
 #include <GL\glut.h>
+#include <exception>
 
 int currentLamp = 0;
 
@@ -15,7 +16,7 @@ GLenum getLamp() {
 		case 6: return GL_LIGHT6;
 		case 7: return GL_LIGHT7;
 		default:
-			return -1;
+			throw std::exception("LIGHTS ENDED");
 			break;
 	}
 	return lamp;

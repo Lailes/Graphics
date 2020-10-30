@@ -5,6 +5,7 @@
 
 #include "Entities.h"
 #include "LightCharacteristics.h"
+#include "LightNumProvider.h"
 #include "Materials.h"
 
 #define SPEED 3
@@ -118,8 +119,9 @@ void initialize(int argc, char* argv[], int width, int height, const char* title
 int main(int argc, char* argv[]) {
     initMaterials();
     initLightCharacteristics();
-    
-    
+   
+    //////////////////////     SHAPES     ///////////////////////////
+
     auto cube = new Cube(-0.8, 0.0, 0.0, 0.2);
     cube->setMaterial(greenRubber);
     renderList.push_back(cube);
@@ -139,39 +141,8 @@ int main(int argc, char* argv[]) {
     cube5->setMaterial(obsidian);
     renderList.push_back(cube5);
 
-    auto light0 = new DotLight(0.8, 0.4, 0.6, GL_LIGHT0);
-    light0->setLigthCharacteristic(dotted);
-    light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());} 
-        if (key == 'p') { object->changeY(MOVE_SPEED); }
-        if (key == ';') { object->changeY(-MOVE_SPEED); }
-        if (key == 'l') { object->changeX(-MOVE_SPEED); }
-        if (key == '\'') { object->changeX(MOVE_SPEED); }
-        if (key == '[n') { object->changeZ(MOVE_SPEED); }
-        if (key == ']') { object->changeZ(-MOVE_SPEED); }
-    });
-    
-    light0->turnDecay(OFF);
-    lights.push_back(light0);
-
-
-    auto lightProjector = new ProjectorLight(0.0, 0.0, 1.0, GL_LIGHT1);
-    lightProjector->setDirection(0.0, 0.0, -1.0);
-    lightProjector->setExponent(0);
-    lightProjector->setAngle(20);
-    lightProjector->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
-     });
-
-    lights.push_back(lightProjector);
-
-    auto vectorLight = new VectorLight(1.0,1.0,1.0, GL_LIGHT2);
-    vectorLight->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '3') { Light* l = (Light*)object; l->turn(!l->isOn()); }
-        });
-    lights.push_back(vectorLight);
-
     auto moveCube = new Cube(-0.5, 0.0, 0.0, 0.2);
+    moveCube->setName("Move cube");
     renderList.push_back(moveCube);
 
     moveCube->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
@@ -182,15 +153,23 @@ int main(int argc, char* argv[]) {
         if (key == 'r') { object->changeZ(MOVE_SPEED); }
         if (key == 'f') { object->changeZ(-MOVE_SPEED); }
         if (key == 'c') { object->visibilty(!object->isVisible()); }
-    });
+        if (key == 'v') { 
+#ifdef _DEBUG
+            auto material = getNextMaterial();
+            std::cout << "Swithching " << object->getName() << " material: \"" << material->name << "\"" << std::endl;
+#endif
+            ((Shape*)object)->setMaterial(material);
+        }
+        });
 
     moveCube->setRestoreFunc([](SceneObject* object) {
         object->setDefaultPosition();
-    });
+        });
 
     moveCube->setMaterial(greenRubber);
-    
+
     auto ball = new Ball(0.2);
+    ball->setName("Ball");
     ball->setMaterial(redRubber);
     ball->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == 'y') { object->changeY(MOVE_SPEED); }
@@ -200,8 +179,57 @@ int main(int argc, char* argv[]) {
         if (key == 'i') { object->changeZ(MOVE_SPEED); }
         if (key == 'k') { object->changeZ(-MOVE_SPEED); }
         if (key == 'b') { object->visibilty(!object->isVisible()); }
+        if (key == 'n') { 
+#ifdef _DEBUG
+            auto material = getNextMaterial();
+            std::cout << "Swithching " << object->getName() << " material: \"" << material->name << "\"" << std::endl;
+#endif
+            ((Shape*)object)->setMaterial(material);
+        }
+
         });
     renderList.push_back(ball);
+
+    //////////////////////     SHAPES     ///////////////////////////
+
+
+    //////////////////////     LIGHTS     ///////////////////////////
+
+    auto light0 = new DotLight(0.8, 0.4, 0.6, getLamp());
+    light0->setLigthCharacteristic(dotted);
+    light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());} 
+        if (key == 'p') { object->changeY(MOVE_SPEED); }
+        if (key == ';') { object->changeY(-MOVE_SPEED); }
+        if (key == 'l') { object->changeX(-MOVE_SPEED); }
+        if (key == '\'') { object->changeX(MOVE_SPEED); }
+        if (key == '[') { object->changeZ(MOVE_SPEED); }
+        if (key == ']') { object->changeZ(-MOVE_SPEED); }
+    });
+    
+    light0->turnDecay(OFF);
+    lights.push_back(light0);
+
+
+    auto lightProjector = new ProjectorLight(1.0, 1.0, 1.0, getLamp());
+    lightProjector->setDirection(-1.0, -1.0, -1.0);
+    lightProjector->setExponent(15.0);
+    lightProjector->setAngle(30);
+    lightProjector->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
+     });
+
+    lights.push_back(lightProjector);
+
+    auto vectorLight = new VectorLight(1.0,1.0,1.0, getLamp());
+    vectorLight->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        if (key == '3') { Light* l = (Light*)object; l->turn(!l->isOn()); }
+        });
+    lights.push_back(vectorLight);
+    
+
+    //////////////////////     LIGHTS     ///////////////////////////
+
 
     initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition (11/10 - IGN)");
 

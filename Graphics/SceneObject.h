@@ -1,9 +1,11 @@
 #pragma once
 
+#include <string>
 #include <functional>
 
 class SceneObject {
 protected:
+	std::string name; bool nameSetted = false;
 	float x, y, z;
 	float startX, startY, startZ;
 	std::function<void(unsigned char&, int&, int&, SceneObject*)> processFunction;
@@ -15,6 +17,16 @@ public:
 		startX = this->x = x;
 		startY = this->y = y;
 		startZ = this->z = z;
+	}
+
+	void setName(std::string name) {
+		if (!nameSetted) {
+			this->name = name;
+		}
+		nameSetted = true;
+	}
+	std::string getName() {
+		return name;
 	}
 
 	virtual void setPosition(float x, float y, float z) {
