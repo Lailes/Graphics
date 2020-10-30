@@ -143,8 +143,12 @@ int main(int argc, char* argv[]) {
     light0->setLigthCharacteristic(dotted);
     light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());} 
-        if (key == 'o') { object->changeZ(-MOVE_SPEED); }
-        if (key == 'l') { object->changeZ(MOVE_SPEED); }
+        if (key == 'p') { object->changeY(MOVE_SPEED); }
+        if (key == ';') { object->changeY(-MOVE_SPEED); }
+        if (key == 'l') { object->changeX(-MOVE_SPEED); }
+        if (key == '\'') { object->changeX(MOVE_SPEED); }
+        if (key == '[n') { object->changeZ(MOVE_SPEED); }
+        if (key == ']') { object->changeZ(-MOVE_SPEED); }
     });
     
     light0->turnDecay(OFF);
