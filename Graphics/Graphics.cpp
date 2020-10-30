@@ -190,8 +190,8 @@ int main(int argc, char* argv[]) {
         if (key == 'f') { object->changeZ(-MOVE_SPEED); }
         if (key == 'c') { object->visibilty(!object->isVisible()); }
         if (key == 'v') { 
-#ifdef _DEBUG
             auto material = getNextMaterial();
+#ifdef _DEBUG
             std::cout << "Swithching " << object->getName() << " material: \"" << material->name << "\"" << std::endl;
 #endif
             ((Shape*)object)->setMaterial(material);
