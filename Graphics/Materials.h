@@ -11,10 +11,10 @@ Material* obsidian;
 Material* mirror;
 Material* redRubber;
 
-int current = 0;
+int currentLight = 0;
 
 Material* getNextMaterial() {
-	switch (current++) {
+	switch (currentLight++) {
 		case 0: return emerald;
 		case 1: return bronze;
 		case 2: return chrome;
@@ -25,7 +25,7 @@ Material* getNextMaterial() {
 		case 7: return mirror;
 		case 8: return redRubber;
 		default:
-			current = 1;
+			currentLight = 1;
 			break;
 	}
 	return emerald;

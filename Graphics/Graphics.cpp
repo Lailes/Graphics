@@ -197,14 +197,25 @@ int main(int argc, char* argv[]) {
 
     auto light0 = new DotLight(0.8, 0.4, 0.6, getLamp());
     light0->setLigthCharacteristic(dotted);
+    light0->setName("Dot light");
     light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());} 
+        if (key == '1') {
+            Light* l = (Light*)object; 
+            l->turn(!l->isOn());
+        } 
         if (key == 'p') { object->changeY(MOVE_SPEED); }
         if (key == ';') { object->changeY(-MOVE_SPEED); }
         if (key == 'l') { object->changeX(-MOVE_SPEED); }
         if (key == '\'') { object->changeX(MOVE_SPEED); }
         if (key == '[') { object->changeZ(MOVE_SPEED); }
         if (key == ']') { object->changeZ(-MOVE_SPEED); }
+        if (key == '4') {
+#ifdef _DEBUG
+            auto light = getNextLight();
+            std::cout << "Swithching " << object->getName() << " light: \"" << light->name << "\"" << std::endl;
+#endif
+            ((Light*)object)->setLigthCharacteristic(light);
+        }
     });
     
     light0->turnDecay(OFF);
@@ -212,18 +223,42 @@ int main(int argc, char* argv[]) {
 
 
     auto lightProjector = new ProjectorLight(1.0, 1.0, 1.0, getLamp());
+    lightProjector->setName("Projector light");
     lightProjector->setDirection(-1.0, -1.0, -1.0);
     lightProjector->setExponent(15.0);
     lightProjector->setAngle(30);
     lightProjector->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
+        if (key == '2') { 
+            Light* l = (Light*)object; 
+            l->turn(!l->isOn());
+        }
+        if (key == '5') {
+#ifdef _DEBUG
+            auto light = getNextLight();
+            std::cout << "Swithching " << object->getName() << " light: \"" << light->name << "\"" << std::endl;
+#endif
+            ((Light*)object)->setLigthCharacteristic(light);
+        }
+
      });
 
     lights.push_back(lightProjector);
 
     auto vectorLight = new VectorLight(1.0,1.0,1.0, getLamp());
+    vectorLight->setName("Vector light");
     vectorLight->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '3') { Light* l = (Light*)object; l->turn(!l->isOn()); }
+        if (key == '3') { 
+            Light* l = (Light*)object;
+            l->turn(!l->isOn());
+        }
+        if (key == '6') {
+#ifdef _DEBUG
+            auto light = getNextLight();
+            std::cout << "Swithching " << object->getName() << " light: \"" << light->name << "\"" << std::endl;
+#endif
+            ((Light*)object)->setLigthCharacteristic(light);
+        }
+
         });
     lights.push_back(vectorLight);
     
