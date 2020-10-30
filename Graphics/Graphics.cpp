@@ -23,6 +23,29 @@ std::vector<Light*> lights;
 int rot_x = 0;
 int rot_y = 0;
 
+#ifdef _DEBUG
+void showHint() {
+    std::cout << "(WASD RF) - cube controls\n"
+        << "(YGHJ IK) - Ball controls\n"
+        << "(OKL: {}) - Dot light controls\n"
+        << "C - Cube ON/OFF\n"
+        << "B - Ball ON/OFF\n"
+        << "1 - Dot light ON/OFF\n"
+        << "2 - Projector light ON/OFF\n"
+        << "3 - Vector light ON/OFF\n"
+        << "4 - Dot light change light scpecs\n"
+        << "5 - Projector light change light scpecs\n"
+        << "6 - Vector light change light scpecs\n"
+        << "V - Cube change material\n"
+        << "N - Ball change material\n"
+        << "F2 - Restore defaults\n"
+        << "F1 - Exit\n\n";
+
+    std::cout << "---------------  DEBUG INFO ---------------\n";
+
+}
+#endif
+
 void render() {        
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -63,9 +86,18 @@ void inputSpecial(int k, int x, int y) {
             exit(0);
             break;
         case GLUT_KEY_F2: {
+#ifdef _DEBUG
+            std::cout << "------------  RESTORE DEFAULTS ------------\n";
+#endif
             for (const auto obj : renderList) {
                 obj->restoreDefaults();
             }
+            for (const auto obj : lights) {
+                obj->restoreDefaults();
+            }
+            rot_x = rot_y = 0;
+            glFlush();
+            glutSwapBuffers();
             break;
         }
         default:
@@ -113,6 +145,10 @@ void initialize(int argc, char* argv[], int width, int height, const char* title
     glutSpecialFunc(inputSpecial);
     glutKeyboardFunc(inputKeyboard);
     glutReshapeFunc(reshape);
+
+#ifdef _DEBUG
+    showHint();
+#endif
 }
 
 
@@ -188,6 +224,10 @@ int main(int argc, char* argv[]) {
         }
 
         });
+
+    ball->setRestoreFunc([](SceneObject* object) {
+        object->setDefaultPosition();
+        });
     renderList.push_back(ball);
 
     //////////////////////     SHAPES     ///////////////////////////
@@ -202,6 +242,9 @@ int main(int argc, char* argv[]) {
         if (key == '1') {
             Light* l = (Light*)object; 
             l->turn(!l->isOn());
+#ifdef _DEBUG
+            std::cout << "Switching " << l->getName() << " status: " << (l->isOn() ? "ON" : "OFF") << std::endl;
+#endif
         } 
         if (key == 'p') { object->changeY(MOVE_SPEED); }
         if (key == ';') { object->changeY(-MOVE_SPEED); }
@@ -231,6 +274,9 @@ int main(int argc, char* argv[]) {
         if (key == '2') { 
             Light* l = (Light*)object; 
             l->turn(!l->isOn());
+#ifdef _DEBUG
+                std::cout << "Switching " << l->getName() << " status: " << (l->isOn() ? "ON" : "OFF") << std::endl;
+#endif
         }
         if (key == '5') {
 #ifdef _DEBUG
@@ -250,6 +296,9 @@ int main(int argc, char* argv[]) {
         if (key == '3') { 
             Light* l = (Light*)object;
             l->turn(!l->isOn());
+#ifdef _DEBUG
+            std::cout << "Switching " << l->getName() << " status: " << (l->isOn() ? "ON" : "OFF") << std::endl;
+#endif
         }
         if (key == '6') {
 #ifdef _DEBUG
