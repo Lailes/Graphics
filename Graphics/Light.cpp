@@ -4,13 +4,13 @@ Light::Light(float x, float y, float z, GLenum lamp, bool drawMark, float markSi
 	this->x = x;
 	this->y = y;
 	this->z = z;
-	this->r = r;
-	this->g = g;
-	this->b = b;
 	this->lamp = lamp;
 	this->drawMark = drawMark;
 	this->markSize = markSize;
 	this->display = false;
+
+	
+
 	restoreDefaultsFunction = [](SceneObject* object) {
 		Light* l = (Light*)object;
 		l->turn(false);

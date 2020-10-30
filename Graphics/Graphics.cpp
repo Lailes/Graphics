@@ -27,6 +27,8 @@ void render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
+
+
     for (const auto light : lights) {
         light->draw();
     }
@@ -116,22 +118,22 @@ void initialize(int argc, char* argv[], int width, int height, const char* title
 int main(int argc, char* argv[]) {
     initMaterials();
     
-    auto cube = new Cube(-0.8, 0.0, 0.0, 0.1);
+    auto cube = new Cube(-0.8, 0.0, 0.0, 0.2);
     cube->setMaterial(greenRubber);
     renderList.push_back(cube);
-    auto cube2 = new Cube(0.8, 0.0, 0.0, 0.1);
+    auto cube2 = new Cube(0.8, 0.0, 0.0, 0.2);
     cube2->setMaterial(pearl);
     renderList.push_back(cube2);
-    auto cube3 = new Cube(0.0, 0.8, 0.0, 0.1);
+    auto cube3 = new Cube(0.0, 0.8, 0.0, 0.2);
     cube3->setMaterial(emerald);
     renderList.push_back(cube3);
-    auto cube4 = new Cube(0.0, -0.8, 0.0, 0.1);
+    auto cube4 = new Cube(0.0, -0.8, 0.0, 0.2);
     cube4->setMaterial(bronze);
     renderList.push_back(cube4);
-    auto cube6 = new Cube(0.0, 0.0, 0.8, 0.1);
+    auto cube6 = new Cube(0.0, 0.0, 0.8, 0.2);
     cube6->setMaterial(chrome);
     renderList.push_back(cube6);
-    auto cube5 = new Cube(0.0, 0.0, -0.8, 0.1);
+    auto cube5 = new Cube(0.0, 0.0, -0.8, 0.2);
     cube5->setMaterial(obsidian);
     renderList.push_back(cube5);
 
@@ -145,8 +147,8 @@ int main(int argc, char* argv[]) {
     lights.push_back(light0);
 
 
-    auto lightProjector = new ProjectorLight(-0.6, -0.6, -0.6, GL_LIGHT1);
-    lightProjector->setDirection(1.0,1.0, 1.0);
+    auto lightProjector = new ProjectorLight(0.0, 0.0, 0.6, GL_LIGHT1);
+    lightProjector->setDirection(0.0, 0.0, -0.6);
     lightProjector->setExponent(200);
     lightProjector->setAngle(20);
     lightProjector->setColor(0.88, 0.63, 1.0);
@@ -163,7 +165,7 @@ int main(int argc, char* argv[]) {
         });
     lights.push_back(vectorLight);
 
-    auto moveCube = new Cube(0.0, 0.0, 0.0, 0.15);
+    auto moveCube = new Cube(-0.5, 0.0, 0.0, 0.2);
     renderList.push_back(moveCube);
 
     moveCube->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
@@ -173,31 +175,27 @@ int main(int argc, char* argv[]) {
         if (key == 'd') { object->changeX(MOVE_SPEED); }
         if (key == 'r') { object->changeZ(MOVE_SPEED); }
         if (key == 'f') { object->changeZ(-MOVE_SPEED); }
+        if (key == 'c') { object->visibilty(!object->isVisible()); }
     });
 
     moveCube->setRestoreFunc([](SceneObject* object) {
         object->setDefaultPosition();
     });
 
-    moveCube->setMaterial(obsidian);
-
-    auto pane2 = new Pane(0.62, 0.72, 1.0);
-    pane2->addVertex(0.7, 0.0, 0.0);
-    pane2->addVertex(0.0, 0.7, 0.0);
-    pane2->addVertex(0.0, 0.0, 0.7);
-    pane2->setMaterial(obsidian);
-    pane2->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == ']') { object->visibilty(!object->isVisible()); }
-        });
-
-    pane2->setRestoreFunc([](SceneObject* object) {
-        object->visibilty(true);
-        });
-
-    renderList.push_back(pane2);
+    moveCube->setMaterial(greenRubber);
     
     auto ball = new Ball(0.2);
-    ball->setMaterial(greenRubber);
+    ball->setMaterial(chrome);
+    ball->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
+        
+        if (key == 'y') { object->changeY(MOVE_SPEED); }
+        if (key == 'h') { object->changeY(-MOVE_SPEED); }
+        if (key == 'g') { object->changeX(-MOVE_SPEED); }
+        if (key == 'j') { object->changeX(MOVE_SPEED); }
+        if (key == 'i') { object->changeZ(MOVE_SPEED); }
+        if (key == 'k') { object->changeZ(-MOVE_SPEED); }
+        if (key == 'b') { object->visibilty(!object->isVisible()); }
+        });
     renderList.push_back(ball);
 
     initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition");

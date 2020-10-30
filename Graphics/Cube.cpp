@@ -6,47 +6,10 @@ void Cube::draw() {
 
     applyMaterial();
 
-    glBegin(GL_POLYGON);
-    glVertex3f(edgeSize + x, -edgeSize + y, -edgeSize + z);
-    glVertex3f(edgeSize + x, edgeSize + y, -edgeSize + z);
-    glVertex3f(-edgeSize + x, edgeSize + y, -edgeSize + z);
-    glVertex3f(-edgeSize + x, -edgeSize + y, -edgeSize + z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(edgeSize + x, -edgeSize + y, edgeSize + z);
-    glVertex3f(edgeSize + x, edgeSize + y, edgeSize + z);
-    glVertex3f(-edgeSize + x, edgeSize + y, edgeSize + z);
-    glVertex3f(-edgeSize + x, -edgeSize + y, edgeSize + z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(edgeSize + x, -edgeSize + y, -edgeSize + z);
-    glVertex3f(edgeSize + x, edgeSize + y, -edgeSize + z);
-    glVertex3f(edgeSize + x, edgeSize + y, edgeSize + z);
-    glVertex3f(edgeSize + x, -edgeSize + y, edgeSize + z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(-edgeSize + x, -edgeSize + y, edgeSize + z);
-    glVertex3f(-edgeSize + x , edgeSize + y, edgeSize + z);
-    glVertex3f(-edgeSize + x, edgeSize + y, -edgeSize + z);
-    glVertex3f(-edgeSize + x, -edgeSize + y, -edgeSize + z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(edgeSize + x, edgeSize + y, edgeSize + z);
-    glVertex3f(edgeSize + x, edgeSize + y, -edgeSize + z);
-    glVertex3f(-edgeSize + x, edgeSize + y, -edgeSize + z);
-    glVertex3f(-edgeSize + x, edgeSize + y, edgeSize + z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(edgeSize + x, -edgeSize + y, -edgeSize + z);
-    glVertex3f(edgeSize + x, -edgeSize + y, edgeSize + z);
-    glVertex3f(-edgeSize + x, -edgeSize + y, edgeSize + z);
-    glVertex3f(-edgeSize + x, -edgeSize + y, -edgeSize + z);
-    glEnd();
+    glPushMatrix();
+    glTranslatef(x, y, z);
+    glutSolidCube(edgeSize);
+    glPopMatrix();
 
     removeMaterial();
 }

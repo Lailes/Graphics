@@ -61,5 +61,11 @@ protected:
 			glColorMaterial(GL_FRONT_AND_BACK, GL_SHININESS);
 		
 	}
+
+public:
+	~Shape() {
+		delete defaultMaterial;
+		delete shapeMaterial;
+	}
 };
 
