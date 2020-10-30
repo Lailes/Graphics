@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Entities.h"
-
+#include "LightCharacteristics.h"
 #include "Materials.h"
 
 #define SPEED 3
@@ -117,6 +117,8 @@ void initialize(int argc, char* argv[], int width, int height, const char* title
 
 int main(int argc, char* argv[]) {
     initMaterials();
+    initLightCharacteristics();
+    
     
     auto cube = new Cube(-0.8, 0.0, 0.0, 0.2);
     cube->setMaterial(greenRubber);
@@ -137,21 +139,22 @@ int main(int argc, char* argv[]) {
     cube5->setMaterial(obsidian);
     renderList.push_back(cube5);
 
-    auto light0 = new DotLight(0.5, 0.5, 0.5, GL_LIGHT0);
-    light0->setColor(0.92, 0.79, 1.0);
+    auto light0 = new DotLight(0.8, 0.4, 0.6, GL_LIGHT0);
+    light0->setLigthCharacteristic(dotted);
     light0->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());}  
+        if (key == '1') {Light* l = (Light*)object; l->turn(!l->isOn());} 
+        if (key == 'o') { object->changeZ(-MOVE_SPEED); }
+        if (key == 'l') { object->changeZ(MOVE_SPEED); }
     });
     
-    light0->turnDecay(ON);
+    light0->turnDecay(OFF);
     lights.push_back(light0);
 
 
-    auto lightProjector = new ProjectorLight(0.0, 0.0, 0.6, GL_LIGHT1);
-    lightProjector->setDirection(0.0, 0.0, -0.6);
-    lightProjector->setExponent(200);
+    auto lightProjector = new ProjectorLight(0.0, 0.0, 1.0, GL_LIGHT1);
+    lightProjector->setDirection(0.0, 0.0, -1.0);
+    lightProjector->setExponent(0);
     lightProjector->setAngle(20);
-    lightProjector->setColor(0.88, 0.63, 1.0);
     lightProjector->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '2') { Light* l = (Light*)object; l->turn(!l->isOn());}
      });
@@ -159,7 +162,6 @@ int main(int argc, char* argv[]) {
     lights.push_back(lightProjector);
 
     auto vectorLight = new VectorLight(1.0,1.0,1.0, GL_LIGHT2);
-    vectorLight->setColor(0.88, 0.40, 0.74);
     vectorLight->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
         if (key == '3') { Light* l = (Light*)object; l->turn(!l->isOn()); }
         });
@@ -185,9 +187,8 @@ int main(int argc, char* argv[]) {
     moveCube->setMaterial(greenRubber);
     
     auto ball = new Ball(0.2);
-    ball->setMaterial(chrome);
+    ball->setMaterial(redRubber);
     ball->setProcessFunc([](unsigned char& key, int& x, int& y, SceneObject* object) {
-        
         if (key == 'y') { object->changeY(MOVE_SPEED); }
         if (key == 'h') { object->changeY(-MOVE_SPEED); }
         if (key == 'g') { object->changeX(-MOVE_SPEED); }
@@ -198,12 +199,12 @@ int main(int argc, char* argv[]) {
         });
     renderList.push_back(ball);
 
-    initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition");
+    initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition (11/10 - IGN)");
 
     glutMainLoop();
 
     deleteMaterials();
-
+    deleteLightCharacteristics();
 
     return 0;
 }

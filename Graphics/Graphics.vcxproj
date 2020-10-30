@@ -35,6 +35,8 @@
     <ClInclude Include="DotLight.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="LightCharacteristic.h" />
+    <ClInclude Include="LightCharacteristics.h" />
     <ClInclude Include="LightNumProvider.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Materials.h" />

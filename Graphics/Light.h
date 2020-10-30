@@ -1,12 +1,14 @@
 #pragma once
 #include <GL\glut.h>
 
+#include "LightCharacteristic.h"
 #include "SceneObject.h"
 
 class Light : public SceneObject {
 protected:
 	GLenum lamp;
-	float r, g, b;  // light color
+	LightCharacteristic* lightCharacteristic;
+	LightCharacteristic* defaultCharacteristic;
 	bool decay = false;
 	bool drawMark = false;
 	float markSize;
@@ -19,10 +21,8 @@ public:
 		this->decay = decay;
 	}
 
-	void setColor(float r, float g, float b) {
-		this->r = r;
-		this->g = g;
-		this->b = b;
+	void setLigthCharacteristic(LightCharacteristic* material) {
+		lightCharacteristic = material;
 	}
 
 	virtual void draw() override;
@@ -38,6 +38,13 @@ public:
 
 	virtual bool isOn() {
 		return display;
+	}
+
+public:
+
+	~Light() {
+		delete lightCharacteristic;
+		delete defaultCharacteristic;
 	}
 };
 

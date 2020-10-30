@@ -81,5 +81,11 @@
     <ClInclude Include="Materials.h">
       <Filter>Examples</Filter>
     </ClInclude>
+    <ClInclude Include="LightCharacteristic.h">
+      <Filter>Entities\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightCharacteristics.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

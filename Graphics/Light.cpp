@@ -9,7 +9,13 @@ Light::Light(float x, float y, float z, GLenum lamp, bool drawMark, float markSi
 	this->markSize = markSize;
 	this->display = false;
 
-	
+	defaultCharacteristic = new LightCharacteristic();
+
+	defaultCharacteristic->ambientRGB = new float[] {0.0, 0.0, 0.0, 1.0};
+	defaultCharacteristic->diffuseRGB = new float[] {1.0, 1.0, 1.0, 1.0};
+	defaultCharacteristic->specularRGB = new float[] {1.0, 1.0, 1.0, 1.0};
+
+	lightCharacteristic = new LightCharacteristic(*defaultCharacteristic);
 
 	restoreDefaultsFunction = [](SceneObject* object) {
 		Light* l = (Light*)object;
@@ -79,8 +85,5 @@ void Light::draw() {
 	glEnd();
 	GLfloat color2[] = { 0.0, 0.0, 0.0 };
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, color2);
-
-	GLfloat pos[4] = { x, y, z };
-	glLightfv(lamp, GL_POSITION, pos);
 
 }

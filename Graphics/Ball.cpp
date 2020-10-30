@@ -6,7 +6,7 @@ void Ball::draw() {
 	applyMaterial();
 	glPushMatrix();
 	glTranslatef(x, y, z);
-	glutSolidSphere(radius, 50, 40);
+	glutSolidSphere(radius, 100, 100);
 	glPopMatrix();
 	removeMaterial();
 }

@@ -1,15 +1,21 @@
-#include "DotLight.h"
+﻿#include "DotLight.h"
 
 void DotLight::draw() {
 	if (!display) return;
+
 	Light::draw();
-	GLfloat colorSpecs[] = { r, g, b, 1.0 };
-	GLfloat position[] = { x, y, z, 1.0 };
-	GLfloat mass[] = { 1.0, 1.0, 1.0, 1.0 };
 
 	glEnable(lamp);
-	glLightfv(lamp, GL_DIFFUSE, colorSpecs);
-	glLightfv(lamp, GL_POSITION, position);
+	GLfloat diffuse[] = { lightCharacteristic->diffuseRGB[0], lightCharacteristic->diffuseRGB[1], lightCharacteristic->diffuseRGB[2] , 1.0 };
+	GLfloat ambient[] = { lightCharacteristic->ambientRGB[0], lightCharacteristic->ambientRGB[1], lightCharacteristic->ambientRGB[2] , 1.0 };
+	GLfloat specular[] = { lightCharacteristic->specularRGB[0], lightCharacteristic->specularRGB[1], lightCharacteristic->specularRGB[2] , 1.0 };
+	GLfloat light_position[] = { x, y, z, 1.0 };
+
+	glLightfv(lamp, GL_AMBIENT, ambient);
+	glLightfv(lamp, GL_DIFFUSE, diffuse);
+	glLightfv(lamp, GL_SPECULAR, specular);
+	glLightfv(lamp, GL_POSITION, light_position);
+
 	if (decay) {
 		glLightf(lamp, GL_CONSTANT_ATTENUATION, 0.0);
 		glLightf(lamp, GL_LINEAR_ATTENUATION, 0.2);

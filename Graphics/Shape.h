@@ -1,5 +1,6 @@
 #pragma once
 #include <GL\glut.h>
+#include <iostream>
 #include "SceneObject.h"
 #include <vector>
 #include "Material.h"
@@ -39,7 +40,7 @@ public:
 protected:
 	void applyMaterial() {
 			glColor3f(shapeMaterial->rgb[0], shapeMaterial->rgb[1], shapeMaterial->rgb[2]);
-			glGetMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, shapeMaterial->diffuseRGB);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, shapeMaterial->diffuseRGB);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &shapeMaterial->shiness);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, shapeMaterial->ambientRGB);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, shapeMaterial->specularRGB);
@@ -51,7 +52,7 @@ protected:
 	}
 
 	void removeMaterial() {
-			glGetMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, defaultMaterial->diffuseRGB);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, defaultMaterial->diffuseRGB);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &defaultMaterial->shiness);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, defaultMaterial->ambientRGB);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, defaultMaterial->specularRGB);

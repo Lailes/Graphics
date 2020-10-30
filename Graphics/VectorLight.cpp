@@ -3,10 +3,16 @@
 void VectorLight::draw() {
 	if (!display) return;
 	Light::draw();
-	GLfloat colorSpecs[] = { r, g, b, 1.0 };
 	GLfloat position[] = { x, y, z, 0.0 };
 
+	
 	glEnable(lamp);
-	glLightfv(lamp, GL_DIFFUSE, colorSpecs);
+	GLfloat diffuse[] = { lightCharacteristic->diffuseRGB[0], lightCharacteristic->diffuseRGB[1], lightCharacteristic->diffuseRGB[2] , 1.0 };
+	GLfloat ambient[] = { lightCharacteristic->ambientRGB[0], lightCharacteristic->ambientRGB[1], lightCharacteristic->ambientRGB[2] , 1.0 };
+	GLfloat specular[] = { lightCharacteristic->specularRGB[0], lightCharacteristic->specularRGB[1], lightCharacteristic->specularRGB[2] , 1.0 };
+	glLightfv(lamp, GL_DIFFUSE, diffuse);
+	glLightfv(lamp, GL_AMBIENT, ambient);
+	glLightfv(lamp, GL_SPECULAR, specular);
 	glLightfv(lamp, GL_POSITION, position);
+
 }
