@@ -24,11 +24,12 @@ std::vector<Light*> lights;
 
 float rot_x = 0;
 float rot_y = 0;
+float rot_z = 0;
 
 #ifdef _DEBUG
 void showHint() {
     std::cout 
-        <<"(UP DOWN LEFT RIGHT) - scene controls\n"
+        <<"(UP DOWN LEFT RIGHT '.' '/') - scene controls\n"
         << "(WASD RF) - cube controls\n"
         << "(YGHJ IK) - Ball controls\n"
         << "(OKL: {}) - Dot light controls\n"
@@ -42,6 +43,7 @@ void showHint() {
         << "6 - Vector light change light scpecs\n"
         << "V - Cube change material\n"
         << "N - Ball change material\n"
+        << "0 - Move objects / lightsipl\n"
         << "F2 - Restore defaults\n"
         << "F1 - Exit\n\n";
 
@@ -63,6 +65,7 @@ void render() {
 
         glRotatef(rot_x, 1.0, 0.0, 0.0);
         glRotatef(rot_y, 0.0, 1.0, 0.0);
+        glRotatef(rot_z, 0.0, 0.0, 1.0);
 
         for (const auto obj : renderList) {
             obj->draw();
@@ -74,6 +77,7 @@ void render() {
 
         glRotatef(rot_x, 1.0, 0.0, 0.0);
         glRotatef(rot_y, 0.0, 1.0, 0.0);
+        glRotatef(rot_z, 0.0, 1.0, 1.0);
 
         for (const auto light : lights) {
             light->draw();
@@ -136,6 +140,14 @@ void inputKeyboard(unsigned char key, int x, int y) {
 
     if (key == '0') {
         rotateObjectsorLights = !rotateObjectsorLights;
+    }
+
+    if (key == '.'){
+        rot_z -= SPEED;
+    }
+
+    if (key == '/') {
+        rot_z += SPEED;
     }
 
     for (const auto obj : renderList) {

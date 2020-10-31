@@ -27,6 +27,7 @@ Material* getNextMaterial() {
 		case 7: return mirror;
 		case 8: return redRubber;
 		case 9: return redGlass;
+		case 10: return greyGlass;
 		default:
 			currentLight = 1;
 			break;
