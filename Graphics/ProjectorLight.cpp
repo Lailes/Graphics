@@ -19,4 +19,11 @@ void ProjectorLight::draw() {
 	glLightf(lamp, GL_SPOT_CUTOFF, angle/2);
 	glLightfv(lamp, GL_SPOT_DIRECTION, light3_spot_direction);
 
+	glLineWidth(3);
+	glBegin(GL_LINES);
+	glColor3f(1.0, 1.0, 1.0);
+	glVertex3f(x,y,z);	
+	glVertex3f(directionX, directionY, directionZ);
+	glEnd();
+
 }

@@ -27,10 +27,11 @@ public:
 		shapeMaterial = new Material(*material);
 	}
 
-	void setColor(float r, float g, float b) {
+	void setColor(float r, float g, float b, float trasparency) {
 		this->shapeMaterial->rgb[0] = r;
 		this->shapeMaterial->rgb[1] = g;
 		this->shapeMaterial->rgb[2] = b;
+		this->shapeMaterial->rgb[3] = trasparency;
 	}
 
 	void setMaterial(Material* material) {
@@ -39,7 +40,7 @@ public:
 
 protected:
 	void applyMaterial() {
-			glColor3f(shapeMaterial->rgb[0], shapeMaterial->rgb[1], shapeMaterial->rgb[2]);
+			glColor4f(shapeMaterial->rgb[0], shapeMaterial->rgb[1], shapeMaterial->rgb[2], shapeMaterial->rgb[3]);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, shapeMaterial->diffuseRGB);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &shapeMaterial->shiness);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, shapeMaterial->ambientRGB);

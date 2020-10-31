@@ -11,21 +11,25 @@
 #define SPEED 3
 #define MOVE_SPEED 0.05
 
-#define LIGHT 0.05
+#define LIGHT 0.2
 
 #define ON true
 #define OFF false
+
+bool rotateObjectsorLights = true;
 
 std::vector<Shape*> renderList;
 
 std::vector<Light*> lights;
 
-int rot_x = 0;
-int rot_y = 0;
+float rot_x = 0;
+float rot_y = 0;
 
 #ifdef _DEBUG
 void showHint() {
-    std::cout << "(WASD RF) - cube controls\n"
+    std::cout 
+        <<"(UP DOWN LEFT RIGHT) - scene controls\n"
+        << "(WASD RF) - cube controls\n"
         << "(YGHJ IK) - Ball controls\n"
         << "(OKL: {}) - Dot light controls\n"
         << "C - Cube ON/OFF\n"
@@ -52,16 +56,28 @@ void render() {
     glLoadIdentity();
 
 
+    if (rotateObjectsorLights) {
+        for (const auto light : lights) {
+            light->draw();
+        }
 
-    for (const auto light : lights) {
-        light->draw();
-    }
+        glRotatef(rot_x, 1.0, 0.0, 0.0);
+        glRotatef(rot_y, 0.0, 1.0, 0.0);
 
-    glRotatef(rot_x, 1.0, 0.0, 0.0);
-    glRotatef(rot_y, 0.0, 1.0, 0.0);
+        for (const auto obj : renderList) {
+            obj->draw();
+        }
+    } else {
+        for (const auto obj : renderList) {
+            obj->draw();
+        }
 
-    for (const auto obj : renderList) {
-        obj->draw();
+        glRotatef(rot_x, 1.0, 0.0, 0.0);
+        glRotatef(rot_y, 0.0, 1.0, 0.0);
+
+        for (const auto light : lights) {
+            light->draw();
+        }
     }
 
     glFlush();
@@ -71,10 +87,10 @@ void render() {
 void inputSpecial(int k, int x, int y) {
     switch (k) {
         case GLUT_KEY_UP:
-            rot_x += SPEED;
+            rot_x -= SPEED;
             break;
         case GLUT_KEY_DOWN:
-            rot_x -= SPEED;
+            rot_x += SPEED;
             break;
         case GLUT_KEY_LEFT:
             rot_y -= SPEED;
@@ -117,6 +133,11 @@ void reshape(int width, int height){
 }
 
 void inputKeyboard(unsigned char key, int x, int y) {
+
+    if (key == '0') {
+        rotateObjectsorLights = !rotateObjectsorLights;
+    }
+
     for (const auto obj : renderList) {
         obj->processInput(key, x, y);
     }
@@ -124,6 +145,14 @@ void inputKeyboard(unsigned char key, int x, int y) {
         obj->processInput(key, x, y);
     }
     glutPostRedisplay();
+}
+
+void inputMouse(int x, int y) {
+    float dx = x - rot_x / 800;
+    float dy = y - rot_y / 800;
+    rot_x += x;
+    rot_y += y;
+    render();
 }
 
 void initialize(int argc, char* argv[], int width, int height, const char* title) {
@@ -141,10 +170,14 @@ void initialize(int argc, char* argv[], int width, int height, const char* title
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
     glEnable(GL_NORMALIZE);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     glutDisplayFunc(render);
     glutSpecialFunc(inputSpecial);
     glutKeyboardFunc(inputKeyboard);
     glutReshapeFunc(reshape);
+    glutMotionFunc(inputMouse);
 
 #ifdef _DEBUG
     showHint();
@@ -315,7 +348,7 @@ int main(int argc, char* argv[]) {
     //////////////////////     LIGHTS     ///////////////////////////
 
 
-    initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition (11/10 - IGN)");
+    initialize(argc, argv, 1000, 1000, "Super AAA 3D Game GOTY Legendary Edition 11/10");
 
     glutMainLoop();
 

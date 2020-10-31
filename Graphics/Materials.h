@@ -10,6 +10,8 @@ Material* pearl;
 Material* obsidian;
 Material* mirror;
 Material* redRubber;
+Material* redGlass;
+Material* greyGlass;
 
 int currentLight = 0;
 
@@ -24,6 +26,7 @@ Material* getNextMaterial() {
 		case 6: return obsidian;
 		case 7: return mirror;
 		case 8: return redRubber;
+		case 9: return redGlass;
 		default:
 			currentLight = 1;
 			break;
@@ -41,7 +44,7 @@ void initMaterials() {
 	emerald->diffuseRGB = new float[] {0.07568, 0.61424, 0.07568, 1.0};
 	emerald->specularRGB = new float[] {0.633, 0.727811, 0.633, 1.0};
 	emerald->shiness = 0.6;
-	emerald->rgb = new float[] {0.0, 0.64, 0.04};
+	emerald->rgb = new float[] {0.0, 0.64, 0.04, 1.0};
 
 	bronze = new Material();
 #ifdef _DEBUG
@@ -51,7 +54,7 @@ void initMaterials() {
 	bronze->diffuseRGB = new float[] {0.714, 0.4284, 0.18144, 1.0};
 	bronze->specularRGB = new float[] {0.393548, 0.271906, 0.166721, 1.0};
 	bronze->shiness = 0.2;
-	bronze->rgb = new float[] {0.82, 0.51, 0.24};
+	bronze->rgb = new float[] {0.82, 0.51, 0.24, 1.0};
 
 	chrome = new Material();
 #ifdef _DEBUG
@@ -61,7 +64,7 @@ void initMaterials() {
 	chrome->diffuseRGB = new float[] {0.4, 0.4, 0.4, 1.0};
 	chrome->specularRGB = new float[] {0.774597, 0.774597, 0.774597, 1.0};
 	chrome->shiness = 0.6;
-	chrome->rgb = new float[] {0.88, 0.88, 0.88};
+	chrome->rgb = new float[] {0.88, 0.88, 0.88, 1.0};
 
 	greenRubber = new Material();
 #ifdef _DEBUG
@@ -71,7 +74,7 @@ void initMaterials() {
 	greenRubber->diffuseRGB = new float[] {0.4, 0.5, 0.4, 1.0};
 	greenRubber->specularRGB = new float[] {0.04, 0.07, 0.04, 1.0};
 	greenRubber->shiness = 0.078125;
-	greenRubber->rgb = new float[] {0.0, 1.0, 0.0};
+	greenRubber->rgb = new float[] {0.0, 1.0, 0.0, 1.0};
 
 	gold = new Material();
 #ifdef _DEBUG
@@ -81,7 +84,7 @@ void initMaterials() {
 	gold->diffuseRGB = new float[] {0.75164, 0.60648, 0.22648, 1.0};
 	gold->specularRGB = new float[] {0.628281, 0.555802, 0.366065, 1.0};
 	gold->shiness = 0.4;
-	gold->rgb = new float[] {1.0, 0.85, 0.24};
+	gold->rgb = new float[] {1.0, 0.85, 0.24, 1.0};
 
 	pearl = new Material();
 #ifdef _DEBUG
@@ -91,7 +94,7 @@ void initMaterials() {
 	pearl->diffuseRGB = new float[] {1.0, 0.829, 0.829, 1.0};
 	pearl->specularRGB = new float[] {0.296648,	0.296648, 0.296648, 1.0};
 	pearl->shiness = 0.088;
-	pearl->rgb = new float[] {0.91, 0.91, 0.82};
+	pearl->rgb = new float[] {0.91, 0.91, 0.82, 1.0};
 
 	obsidian = new Material();
 #ifdef _DEBUG
@@ -101,7 +104,7 @@ void initMaterials() {
 	obsidian->diffuseRGB = new float[] {0.18275, 0.17, 0.22525, 1.0};
 	obsidian->specularRGB = new float[] {0.332741, 0.328634, 0.346435, 1.0};
 	obsidian->shiness = 0.3;
-	obsidian->rgb = new float[] {0.06, 0.02, 0.1};
+	obsidian->rgb = new float[] {0.06, 0.02, 0.1, 1.0};
 
 	mirror = new Material();
 #ifdef _DEBUG
@@ -111,17 +114,41 @@ void initMaterials() {
 	mirror->diffuseRGB = new float[] {0.0, 0.0, 0.0, 1.0};
 	mirror->specularRGB = new float[] {1.0, 1.0, 1.0, 1.0};
 	mirror->shiness = 128.0;
-	mirror->rgb = new float[] {1.0, 1.0, 1.0};
+	mirror->rgb = new float[] {1.0, 1.0, 1.0, 1.0};
 
 	redRubber = new Material();
 #ifdef _DEBUG
 	redRubber->name = "Red rubber";
 #endif
 	redRubber->ambientRGB = new float[] {0.5, 0.0, 0.0,1.0};
-	redRubber->diffuseRGB = new float[] {0.5, 0.0, 0.0, 1.0,1.0};
+	redRubber->diffuseRGB = new float[] {0.5, 0.0, 1.0,1.0};
 	redRubber->specularRGB = new float[] {1.0, 1.0, 1.0,1.0};
 	redRubber->shiness = 0.5f * 128;
-	redRubber->rgb = new float[] {1.0, 0.0, 0.0};
+	redRubber->rgb = new float[] {1.0, 0.0, 0.0,1.0};
+
+
+	redGlass = new Material();
+#ifdef _DEBUG
+	redGlass->name = "Light blue glass";
+#endif
+	redGlass->ambientRGB = new float[] {0.5, 0.0, 0.0, 1.0};
+	redGlass->diffuseRGB = new float[] {0.2, 0.0, 1.0, 1.0};
+	redGlass->specularRGB = new float[] {1.0, 1.0, 1.0, 1.0};
+	redGlass->shiness = 0.5f * 128;
+	redGlass->rgb = new float[] {0.4, 0.6, 0.6, 0.7};
+
+
+	greyGlass = new Material();
+#ifdef _DEBUG
+	greyGlass->name = "Light gray glass";
+#endif
+	greyGlass->ambientRGB = new float[] {0.2, 0.2, 0.2, 1.0};
+	greyGlass->diffuseRGB = new float[] {0.2, 0.2, 0.2, 1.0};
+	greyGlass->specularRGB = new float[] {0.2, 0.2, 0.2, 1.0};
+	greyGlass->shiness = 0.5f * 128;
+	greyGlass->rgb = new float[] {0.8, 0.8, 0.8, 0.8};
+
+
 }
 
 
@@ -135,4 +162,6 @@ void deleteMaterials() {
 	delete obsidian;
 	delete mirror;
 	delete redRubber;
+	delete redGlass;
+	delete greyGlass;
 }
